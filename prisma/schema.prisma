@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id  @default(cuid())
+  username        String   @unique
+  email           String   @unique
+  password        String?
+  oauthProvider   String?  // Store the provider name (e.g., 'google', 'facebook', 'apple', etc.)
+  oauthUserId     String?  // Store the user ID provided by the third-party provider
+  oauthAccessToken String?  // Store the access token provided by the third-party provider
+}
+
+
+model Category {
+  id              String   @id  @default(cuid())
+  name            String @unique
+  products Product[] // Add opposite relation field referencing Product
+}
+
+model Product {
+  id              String       @id @default(cuid())
+  name            String
+  description     String
+  category        Category     @relation(fields: [categoryId], references: [id])
+  categoryId      String
+  postedOn        DateTime     @default(now())
+  showroom        String?
+  trim            String?
+  year            Int?
+  kilometers      Int?
+  regionalSpecs   String?
+  doors           Int?
+  bodyType        String?
+  sellerType      String?
+  transmissionType String?
+  horsepower      Int?
+  numberOfCylinders Int?
+  warranty        Boolean?
+  exteriorColor   String?
+  interiorColor   String?
+  targetMarket    String?
+  tags            TagProduct[] // Many-to-many relationship with Tag
+}
+
+model Tag {
+  id   String  @id @default(cuid())
+  name String  @unique
+  products TagProduct[] // Many-to-many relationship with Product
+}
+
+// Intermediate model representing the many-to-many relationship between Product and Tag
+model TagProduct {
+  id       String   @id @default(cuid())
+  product  Product  @relation(fields: [productId], references: [id])
+  productId String
+  tag      Tag      @relation(fields: [tagId], references: [id])
+  tagId    String
+}
+
+
+
+
+
