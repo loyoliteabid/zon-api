@@ -1,13 +1,41 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
+import { Request, Response, NextFunction } from "express";
+
+import categories from "./routes/categories";
+import products from "./routes/products";
+import users from "./routes/users";
+import { HttpError } from "./model/httpError";
 
 const prisma = new PrismaClient();
 const app = express();
+const port = process.env.PORT || 3999;
 
 app.use(express.json());
 
-// ... your REST API routes will go here
+app.all("/", (req, res) => {
+  res.status(200).send("Success");
+}); //GET or POST or any other verb on / will be handled here
 
-app.listen(3000, () =>
-  console.log("REST API server ready at: http://localhost:3000")
+// APIs
+app.use("/categories", categories);
+app.use("/products", products);
+app.use("/users", users);
+
+app.use((/*req, res, next*/) => {
+  const error = new HttpError("Could not find this route.", 404);
+  throw error;
+});
+
+// Error handling middleware
+app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(error);
+  }
+  res.status(error.code || 500);
+  res.json({ message: error.message || "An unknown error occurred!" });
+});
+
+app.listen(port, () =>
+  console.log(`[server]: Server is running at http://localhost:${port}`)
 );
