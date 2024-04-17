@@ -73,9 +73,9 @@ export const addProduct = async (
         exteriorColor,
         interiorColor,
         targetMarket,
-        tags: {
-          create: tags.map((tagName: string) => ({ name: tagName })),
-        },
+        // tags: {
+        //   create: tags.map((tagName: string) => ({ name: tagName })),
+        // },
       },
     });
 
