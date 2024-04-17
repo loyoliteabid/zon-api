@@ -41,7 +41,7 @@ export const addUser = async (
     });
 
     // Send response with the newly created user
-    res.status(201).json({ newUser });
+    res.status(201).json({ data: newUser });
   } catch (error) {
     // Handle errors
     const err = new HttpError(

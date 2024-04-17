@@ -27,6 +27,7 @@ model User {
 model Category {
   id              String   @id  @default(cuid())
   name            String @unique
+  imageSrc        String?
   products Product[] // Add opposite relation field referencing Product
 }
 
@@ -37,6 +38,7 @@ model Product {
   category        Category     @relation(fields: [categoryId], references: [id])
   categoryId      String
   postedOn        DateTime     @default(now())
+  imageSrc        String?
   showroom        String?
   trim            String?
   year            Int?
