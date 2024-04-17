@@ -9,11 +9,13 @@ export const addCategory = async (
   next: NextFunction
 ) => {
   try {
-    const { name } = req.body;
+    const { name, imageSrc } = req.body;
 
     const prisma = new PrismaClient();
 
-    const savedCategory = await prisma.category.create({ data: { name } });
+    const savedCategory = await prisma.category.create({
+      data: { name, imageSrc },
+    });
     if (savedCategory) {
       // send response
       res
@@ -44,7 +46,7 @@ export const getAllCategories = async (
     const categories = await prisma.category.findMany();
 
     // Send response with the retrieved categories
-    res.status(200).json({ categories });
+    res.status(200).json({ data: categories });
   } catch (error) {
     // Handle errors
     const err = new HttpError(
@@ -73,7 +75,7 @@ export const updateCategoryName = async (
     });
 
     // Send response with the updated category
-    res.status(200).json({ updatedCategory });
+    res.status(200).json({ data: updatedCategory });
   } catch (error) {
     // Handle errors
     const err = new HttpError(
