@@ -1,11 +1,11 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import { addUser, loginUser } from "../controllers/users";
 
 // New Router instance
 const router = Router();
 
 // Users routes
-router.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Users" });
-});
+router.post("/create", addUser);
+router.post("/login", loginUser);
 
 export default router;
