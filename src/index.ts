@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import express from "express";
 import { Request, Response, NextFunction } from "express";
 
@@ -7,7 +6,6 @@ import products from "./routes/products";
 import users from "./routes/users";
 import { HttpError } from "./model/httpError";
 
-const prisma = new PrismaClient();
 const app = express();
 const port = process.env.PORT || 3999;
 
