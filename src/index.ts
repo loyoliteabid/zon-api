@@ -6,6 +6,8 @@ import products from "./routes/products";
 import users from "./routes/users";
 import { HttpError } from "./model/httpError";
 
+require("dotenv").config();
+
 const app = express();
 const port = process.env.PORT || 3999;
 
