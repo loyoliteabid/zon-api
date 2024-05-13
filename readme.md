@@ -1,6 +1,6 @@
-# Zonesso API
+# Zon API
 
-**Zonesso API** is a Node.js Express project designed to manage REST APIs for the assessment. It leverages Prisma ORM to interact with a PostgreSQL database.
+**Zon API** is a Node.js Express project designed to manage REST APIs for the assessment. It leverages Prisma ORM to interact with a PostgreSQL database.
 
 ## Technical Details
 
@@ -21,15 +21,15 @@ At the root level, you'll find two main folders: "Prisma" and "src".
 
 To get started:
 
-1. Clone the Zonesso API repository.
+1. Clone the Zon API repository.
 2. Run `npm install`.
 3. Create a `.env` file and add the database URL:
 
 ```
-DATABASE_URL="postgresql://postgres@localhost:5432/zonesso"
+DATABASE_URL="postgresql://postgres@localhost:5432/Zon"
 ```
 
 **Database user:** postgres  
-**Database name:** zonesso
+**Database name:** Zon
 
 4. Execute `npm run dev` to run the Node.js Express server on port 3999.
